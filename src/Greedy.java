@@ -1,20 +1,20 @@
 import java.lang.reflect.Array;
 import java.util.*;
 
-public class Greedy {
-    private Datos d;
-    public Greedy() {}
-    public Greedy(Datos d) {
-        this.d = d;
+public class Greedy extends Algoritmo {
+    protected ArrayList<Pair> flujosPair;
+    protected ArrayList<Pair> distanciasPair;
+
+    public Greedy(Datos d, int semilla) {
+        super(d, semilla);
     }
 
-    public ArrayList<Integer> getSolucion() {
+    protected void generarPares() {
         ArrayList<ArrayList<Integer>> flujos = Datos.getFlujos();
         ArrayList<ArrayList<Integer>> distancias = Datos.getDistancias();
-        ArrayList<Integer> solucion = new ArrayList<>(Collections.nCopies(flujos.size(), null));
 
-        ArrayList<Pair> flujosPair = new ArrayList<Pair>(flujos.size());
-        ArrayList<Pair> distanciasPair = new ArrayList<Pair>(distancias.size());
+        flujosPair = new ArrayList<Pair>(flujos.size());
+        distanciasPair = new ArrayList<Pair>(distancias.size());
 
         for (int i = 0; i < flujos.size(); i++) {
             Integer f_sum = 0;
@@ -28,12 +28,16 @@ public class Greedy {
         }
         flujosPair.sort(new Pair.CompSecond());
         distanciasPair.sort(new Pair.CompSecond());
+    }
 
-        Queue<Pair> colaDistancias = new LinkedList<>(flujosPair);
+    public ArrayList<Integer> getSolucion() {
+        generarPares();
+        Queue<Pair> colaDistancias = new LinkedList<>(distanciasPair);
         Stack<Pair> pilaFlujos = new Stack<>();
-        pilaFlujos.addAll(distanciasPair);
+        pilaFlujos.addAll(flujosPair);
+        ArrayList<Integer> solucion = new ArrayList<>(Collections.nCopies(Datos.getDimension(), 0));
 
-        for (int i = 0; i < flujos.size(); i++) {
+        for (int i = 0; i < Datos.getDimension(); i++) {
             solucion.set(pilaFlujos.pop().getFirst(),colaDistancias.poll().getFirst());
         }
         return solucion;
