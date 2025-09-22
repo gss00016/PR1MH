@@ -1,16 +1,20 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Datos {
     private static ArrayList<ArrayList<Integer>> flujos;
     private static ArrayList<ArrayList<Integer>> distancias;
-    private static int dimension;
+    private Random random;
+
     public Datos(String path) {
+        this.random = new Random();
+        int dimension;
         flujos = new ArrayList<ArrayList<Integer>>();
         distancias = new ArrayList<ArrayList<Integer>>();
         try {
-            FileReader fr = new FileReader(path);
+            FileReader fr = new FileReader("_ejemplo.txt");
             BufferedReader br = new BufferedReader(fr);
             dimension = Integer.parseInt(br.readLine());
             br.readLine();
@@ -43,10 +47,6 @@ public class Datos {
 
     public static ArrayList<ArrayList<Integer>> getDistancias() {
         return distancias;
-    }
-
-    public static int getDimension() {
-        return dimension;
     }
 
     public Integer evaluacion(ArrayList<Integer> solucion) {
