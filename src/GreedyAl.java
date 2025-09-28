@@ -8,16 +8,15 @@ public class GreedyAl extends Greedy{
     }
 
     @Override
-    public ArrayList<Integer> getSolucion() {
+    public void calcSolucion() {
         generarPares();
-        ArrayList<Integer> solucion = new ArrayList<>(Collections.nCopies(Datos.getDimension(), 0));
         Queue<Pair> colaDistancias = new LinkedList<>(distanciasPair);
+        solucion = new ArrayList<>(Collections.nCopies(d.getDimension(), 0));
 
-        for (int i = 0; i < Datos.getDimension(); i++) {
+        for (int i = 0; i < d.getDimension(); i++) {
             int indice = k < flujosPair.size() ? random.nextInt(k) : flujosPair.size() - 1;
             solucion.set(flujosPair.get(indice).getFirst(), colaDistancias.poll().getFirst());
             flujosPair.remove(indice);
         }
-        return solucion;
     }
 }

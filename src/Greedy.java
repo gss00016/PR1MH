@@ -10,8 +10,8 @@ public class Greedy extends Algoritmo {
     }
 
     protected void generarPares() {
-        ArrayList<ArrayList<Integer>> flujos = Datos.getFlujos();
-        ArrayList<ArrayList<Integer>> distancias = Datos.getDistancias();
+        ArrayList<ArrayList<Integer>> flujos = d.getFlujos();
+        ArrayList<ArrayList<Integer>> distancias = d.getDistancias();
 
         flujosPair = new ArrayList<Pair>(flujos.size());
         distanciasPair = new ArrayList<Pair>(distancias.size());
@@ -30,18 +30,15 @@ public class Greedy extends Algoritmo {
         distanciasPair.sort(new Pair.CompSecond());
     }
 
-    public ArrayList<Integer> getSolucion() {
+    public void calcSolucion() {
         generarPares();
         Queue<Pair> colaDistancias = new LinkedList<>(distanciasPair);
         Stack<Pair> pilaFlujos = new Stack<>();
         pilaFlujos.addAll(flujosPair);
-        ArrayList<Integer> solucion = new ArrayList<>(Collections.nCopies(Datos.getDimension(), 0));
+        solucion = new ArrayList<>(Collections.nCopies(d.getDimension(), 0));
 
-        for (int i = 0; i < Datos.getDimension(); i++) {
+        for (int i = 0; i < d.getDimension(); i++) {
             solucion.set(pilaFlujos.pop().getFirst(),colaDistancias.poll().getFirst());
         }
-        return solucion;
     }
-
-
 }

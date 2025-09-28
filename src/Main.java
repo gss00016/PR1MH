@@ -25,10 +25,10 @@ public class Main {
                     switch (parametros[0]) {
                         case "GreedyAl":
                             al = new GreedyAl(dato, Integer.parseInt(parametros[1]), Integer.parseInt(parametros[2]));
-                            System.out.println(dato.getDimension());
                             break;
                     }
                     System.out.println(al.getSolucion());
+                    System.out.println("Evaluación: " + al.evaluacion());
                 }
 
             }
