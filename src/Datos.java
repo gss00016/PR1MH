@@ -8,8 +8,11 @@ public class Datos {
     private ArrayList<ArrayList<Integer>> distancias;
     private Random random;
     private int dimension;
+    private String nombre;
 
     public Datos(String path) {
+        nombre = path.split("/")[1];
+        nombre = nombre.substring(0, nombre.length() - 4);
         this.random = new Random();
         flujos = new ArrayList<ArrayList<Integer>>();
         distancias = new ArrayList<ArrayList<Integer>>();
@@ -47,6 +50,14 @@ public class Datos {
 
     public ArrayList<ArrayList<Integer>> getDistancias() {
         return distancias;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Random getRandom() {
+        return random;
     }
 
     public int getDimension() {

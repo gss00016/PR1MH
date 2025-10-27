@@ -14,9 +14,10 @@ public class GreedyAl extends Greedy{
         solucion = new ArrayList<>(Collections.nCopies(d.getDimension(), 0));
 
         for (int i = 0; i < d.getDimension(); i++) {
-            int indice = k < flujosPair.size() ? random.nextInt(k) : flujosPair.size() - 1;
+            int indice = k < flujosPair.size() ? d.getRandom().nextInt(k) : flujosPair.size() - 1;
             solucion.set(flujosPair.get(indice).getFirst(), colaDistancias.poll().getFirst());
             flujosPair.remove(indice);
         }
+        log.info("\nSolución: "+solucion.toString());
     }
 }

@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class Algoritmo {
     protected Datos d;
-    protected Random random;
     protected ArrayList<Integer> solucion;
-
-    public Algoritmo(ArrayList<String> parametros) {}
+    protected int evaluacion = 0;
+    protected Logger log;
 
     public Algoritmo(Datos d, int semilla) {
         this.d = d;
-        this.random = new Random(semilla);
+        log = Log.getLogger(getClass().getName()+semilla+d.getNombre());
     }
 
     protected void calcSolucion(){}
@@ -22,10 +22,17 @@ public class Algoritmo {
         return solucion;
     }
 
-    public Integer evaluacion() {
+    public int evaluacion(){
+        if(evaluacion == 0){
+            evaluacion = evaluacion(getSolucion());
+        }
+        return evaluacion;
+    }
+
+    public int evaluacion(ArrayList<Integer> solucion) {
         ArrayList<ArrayList<Integer>> flujos = d.getFlujos();
         ArrayList<ArrayList<Integer>> distancias = d.getDistancias();
-        Integer sum = 0;
+        int sum = 0;
         for(int i = 0; i < solucion.size(); i++) {
             for(int j = 0; j < solucion.size(); j++) {
                 if(i != j){

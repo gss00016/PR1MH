@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class Greedy extends Algoritmo {
     protected ArrayList<Pair> flujosPair;
@@ -12,7 +13,6 @@ public class Greedy extends Algoritmo {
     protected void generarPares() {
         ArrayList<ArrayList<Integer>> flujos = d.getFlujos();
         ArrayList<ArrayList<Integer>> distancias = d.getDistancias();
-
         flujosPair = new ArrayList<Pair>(flujos.size());
         distanciasPair = new ArrayList<Pair>(distancias.size());
 
@@ -27,7 +27,9 @@ public class Greedy extends Algoritmo {
             distanciasPair.add(new Pair(i, d_sum));
         }
         flujosPair.sort(new Pair.CompSecond());
+        log.info("5 mayores flujos: "+flujosPair.subList(flujos.size()-6,flujos.size()-1).reversed().toString());
         distanciasPair.sort(new Pair.CompSecond());
+        log.info("5 menores distancias: "+distanciasPair.subList(0,5).toString());
     }
 
     public void calcSolucion() {
@@ -40,5 +42,6 @@ public class Greedy extends Algoritmo {
         for (int i = 0; i < d.getDimension(); i++) {
             solucion.set(pilaFlujos.pop().getFirst(),colaDistancias.poll().getFirst());
         }
+        log.info("\nSolución: "+solucion.toString());
     }
 }
